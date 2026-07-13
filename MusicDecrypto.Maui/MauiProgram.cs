@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
+using CommunityToolkit.Maui.Markup;
+
 namespace MusicDecrypto.Maui;
 
 public static class MauiProgram {
@@ -7,6 +9,7 @@ public static class MauiProgram {
       var builder = MauiApp.CreateBuilder();
       builder
          .UseMauiApp<App>()
+         .UseMauiCommunityToolkitMarkup()
          .ConfigureFonts(fonts => {
             fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
