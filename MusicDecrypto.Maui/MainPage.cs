@@ -1,57 +1,94 @@
 ﻿namespace MusicDecrypto.Maui;
 
 using CommunityToolkit.Maui.Markup;
+using Microsoft.Maui.Controls.Shapes;
+using static CommunityToolkit.Maui.Markup.GridRowsColumns;
 
-public class MainPage : ContentPage {
-   int _count = 0;
-   readonly Button CounterBtn;
+public partial class MainPage : ContentPage {
+   static readonly double _boxRadius = 5;
+   static readonly Color _backgroundColor = new(30, 34, 36);
+   static readonly Thickness _margin = new(5);
+   static readonly Thickness _padding = new(5);
+   static readonly Color _stroke = Colors.LightGray;
+   static readonly double _strokeThickness = 0.25;
 
    public MainPage() {
-      CounterBtn = new Button {
-         Text = "Click me"
-      }
-         .SemanticHint("Counts the number of times you click")
-         .FillHorizontal();
-      CounterBtn.Clicked += OnCounterClicked;
+      Content = new Grid {
+         Padding = _padding,
 
-      Content = new ScrollView {
-         Content = new VerticalStackLayout {
-            Spacing = 25,
-            Children = {
-               new Image {
-                  Source = "dotnet_bot.png",
-                  Aspect = Aspect.AspectFit
+         RowDefinitions = Rows.Define(
+            Stars(2), Stars(6), Stars(2)
+         ),
+         Children = {
+            new Grid {
+               ColumnDefinitions = Columns.Define(Star, Star),
+               Children = {
+                  new Border {
+                     BackgroundColor = _backgroundColor,
+                     Margin = _margin,
+                     Padding = _padding,
+                     Stroke = _stroke,
+                     StrokeThickness = _strokeThickness,
+                     StrokeShape = new RoundRectangle {
+                        CornerRadius = new CornerRadius(_boxRadius),
+                     },
+
+                     Content = new Label {
+                        Text = "123"
+                     }
+                  }.Column(0),
+
+                  new Border {
+                     BackgroundColor = _backgroundColor,
+                     Margin = _margin,
+                     Padding = _padding,
+                     Stroke = _stroke,
+                     StrokeThickness = _strokeThickness,
+                     StrokeShape = new RoundRectangle {
+                        CornerRadius = new CornerRadius(_boxRadius),
+                     },
+
+                     Content = new Label {
+                        Text = "456"
+                     }
+                  }.Column(1)
                }
-                  .Height(185)
-                  .SemanticDescription("dot net bot in a race car number eight"),
+            }.Row(0),
 
-               new Label {
-                  Text = "Hello, World!",
-                  Style = (Style)Application.Current!.Resources["Headline"]
-               }
-                  .SemanticHeadingLevel(SemanticHeadingLevel.Level1),
+            new Border {
+               BackgroundColor = _backgroundColor,
+               Margin = _margin,
+               Padding = _padding,
+               Stroke = _stroke,
+               StrokeThickness = _strokeThickness,
+               StrokeShape = new RoundRectangle {
+                  CornerRadius = new CornerRadius(_boxRadius),
+               },
 
-               new Label {
-                  Text = "Welcome to \n.NET Multi-platform App UI",
-                  Style = (Style)Application.Current!.Resources["SubHeadline"]
-               }
-                  .SemanticHeadingLevel(SemanticHeadingLevel.Level2)
-                  .SemanticDescription("Welcome to dot net Multi platform App U I"),
+               Content = new ScrollView {
+                  Content = new VerticalStackLayout {
+                     Children = {
+                        new Label { Text = "中间内容" }
+                     }
+                  }
+               },
+            }.Row(1),
 
-               CounterBtn
+            new Border {
+               BackgroundColor = _backgroundColor,
+               Margin = _margin,
+               Padding = _padding,
+               Stroke = _stroke,
+               StrokeThickness = _strokeThickness,
+               StrokeShape = new RoundRectangle {
+                  CornerRadius = new CornerRadius(_boxRadius),
+               },
+
+               Content = new Label {
+                     Text = "底部"
+                  }
+               }.Row(2)
             }
-         }.Paddings(30, 0, 30, 0)
       };
-   }
-
-   private void OnCounterClicked(object? sender, EventArgs e) {
-      _count++;
-
-      if (_count == 1)
-         CounterBtn.Text = $"Clicked {_count} time";
-      else
-         CounterBtn.Text = $"Clicked {_count} times";
-
-      SemanticScreenReader.Announce(CounterBtn.Text);
    }
 }

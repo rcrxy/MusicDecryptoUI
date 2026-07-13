@@ -6,7 +6,6 @@ public class AppShell : Shell {
       FlyoutBehavior = FlyoutBehavior.Disabled;
 
       Items.Add(new ShellContent {
-         Title = "Home",
          Route = "MainPage",
          ContentTemplate = new DataTemplate(static () => new MainPage())
       });
